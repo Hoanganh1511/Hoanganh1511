@@ -1,0 +1,97 @@
+<%-include ('./layouts/header') -%>
+
+<% if(user){ %>
+     <ul class="profile-menu">
+       <li class="profile-user-li" onclick="test4" ><a href="#profile_user"> Hồ sơ người dùng</a></li>
+       <li class="order-user-li" onclick="test3" ><a href="#order_user"> Đơn hàng của bạn</a></li>
+   </ul>
+<div class="profile_user" >
+  
+    
+  
+       <%- messages() %>
+   <div class="profile_avatar">
+        <img class="profile_img" src="/../images/<%= user.avatar %>"/>
+     <span><b> <%= user.name %> <a href="/users/change_name" class="change_name"> <i class="fi fi-rr-edit"></i></a></b> <p>Giúp mọi người khám phá tài khoản của bạn bằng cách sử dụng tên mà bạn biết: tên đầy đủ, biệt hiệu hoặc tên doanh nghiệp của bạn.</p></span>
+  
+   </div>
+     
+    <p><b>Email: </b><%= user.email %><a class="change_info" href="/users/change_email">Thay đổi</a><br/> <i>Nhập email liên hệ chính thức của bạn để cập nhật các thông tin mới nhất </i></p>
+ 
+    
+    <p><b>Số điện thoại: </b> <%= user.phone %><a class="change_info" href="/users/change_phone">Thay đổi</a></p>
+    <p><b>Giới tính:</b>Nam</p>
+    <% if(user.admin === 1){ %>
+    <p><b>Phân quyền:</b>Quản trị viên</p>
+    <% }else{ %>
+        <p><b>Phân quyền: </b>Khách hàng</p>
+    <% } %>
+    <a href="/users/change_password" class="change_password">Cập nhật mật khẩu</a>
+   
+</div>
+<div class="order_user" id="order_user">
+   <div class="top-order">
+        <h5>Đơn hàng của bạn</h5>
+        <p>Hiện có: <b class="amount-order"><%= order.length %></b> đơn</p>
+   </div>
+
+
+
+
+    <% order.forEach((o)=> { %>
+        <div class="ordered">
+          
+            <p><b>Sản phẩm: </b><%= o.detailOrder %></>
+            <p><b>Tổng trị giá: </b><%= o.totalOrder %></p>
+            <p><b>Địa chỉ nhận hàng:</b> <%= o.address %></p>
+        </div>
+       <div class="status-ordered">
+           <% if(o.statusOrder === "Đơn đã xuất kho") { %>
+                <i class="fi fi-ss-circle-small shipped"></i>
+                <i><%= o.statusOrder %></i>
+             
+             
+                    <p class="btn-cancel">Hủy đơn</p>
+            <%} else if(o.statusOrder === "Đã hủy") {%>
+                 <i class="fi fi-ss-circle-small waiting"></i>
+                <i><%= o.statusOrder %></i>
+              
+                
+               <a href="/users/reOrder/<%= o._id %>" class="btn-cancel reorder-user-profile" >Đặt lại </a>
+
+            <% } else{%>
+            <i class="fi fi-ss-circle-small waiting"></i>
+             <i><%= o.statusOrder %></i>
+              
+     
+                   <a href="/users/usercancelOrder/<%= o._id %>" class="btn-cancel cancel-user-profile" >Hủy đơn</a>
+                <% } %>
+        
+       </div>
+     
+        <% }); %>
+
+
+</div>
+<% } %>
+
+
+</div>
+</div>
+</div>
+
+<div class="on-top">
+<div class="switch">
+<i class="bi bi-caret-up"></i>
+
+</div>
+</div>
+
+
+
+
+<!-- PAGE-SECTION-SERVICE-START -->
+
+
+
+<%-include ('./layouts/footer') -%>

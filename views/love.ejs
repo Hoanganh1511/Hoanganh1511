@@ -1,0 +1,169 @@
+<%-include ('./layouts/header') -%>
+<div class="container" id="register">
+    <div class="row">
+        <div class="col-lg-5">
+            <h2><%= title %></h2>
+
+
+        </div>
+    </div>
+</div>
+<!-- END_HEADER -->
+<!-- PAGE-SECTION-START -->
+
+<!-- PAGE-SECTION-END -->
+<section>
+    <div class="container">
+        <% eva.forEach(function(eva) { %>
+
+            <div class="row">
+                <div class="col">
+                   
+                    <div class="love-message">
+                        <h4>User: <%= eva.fullname %></h4>
+                      
+                        <p><%= eva.message %></p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+       
+    </div>
+</section>
+
+<!-- PAGE-SECTION-SERVICE-END -->
+
+
+<!-- PORTFOLIO -->
+<div id="portfolio">
+<div class="container-fluid">
+
+<div class="row justify-content-evenly">
+
+<% products.forEach(function(p){ %>
+    <div class="col-lg-4 col-md-6 g-0 px-3 my-3 portfolio anim2">
+        <div disabled="disabled" class="portfolio-box">
+            <img src="/../product_images/<%= p.id %>/<%= p.image %>" alt="">
+            
+            <a href="/products/<%- p.category %>/<%- p.slug %>" class="portfolio-box-caption">
+               
+               <div class="index-size project-buynow vd">
+                Quick View Detail
+                    <% (p.size).forEach(function(s) { %>
+                        <p href=""><%= s %></p>
+            
+            
+                      <% }) %>
+                 </div>
+               
+            </a>
+            
+        </div>
+        <p class="category-product"><%= p.category %></p>
+        <h3 class="title-product"><%= p.title %></h3>
+       
+            <p class="price-product"><b>£</b><%= p.price %></p>
+    </div>
+    
+    <% }); %>
+
+</div>
+</div>
+</div>
+<!-- END PORTFOLIO -->
+
+<!-- MODAL SLIDE -->
+<!-- <div class="image-view">
+
+</div>
+
+<div class="image-box">
+<div id="prev-btn"></div>
+<div id="next-btn"></div>
+</div> -->
+<!-- MODAL SLIDE -->
+
+
+
+
+
+
+
+<!-- PAGE-SECTION-START -->
+<section class="page-section bg-dark">
+<div class="container px-4 px-lg-5">
+<div class="row gx-4 px-lg-5 justify-content-center text-center">
+<div class="col-lg-8 text-center">
+<h2 class="mb-4">Let's get started!</h2>
+<a href="" class="btn btn-primary btn-xl btn-light btn-pull" id="btn-page-section">DOWNLOAD NOW!</a>
+</div>
+</div>
+</div>
+</section>
+<!-- PAGE-SECTION-END -->
+
+
+<!-- PAGE-SECTION-FORM-START -->
+<section class="page-section" id="contact">
+<div class="container px-4 px-lg-5">
+<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+<div class="col-lg-8 text-center">
+<h2>Let's Get In Touch!</h2>
+<hr class="divider">
+<p class="mb-4">Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!</p>
+
+</div>
+<div action="" class="form-contact col-lg-6">
+<form action="">
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Full name</label>
+</div>
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Phone number</label>
+</div>
+<div class="form-floating mb-3">
+<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+<label for="floatingTextarea2">Messages</label>
+
+</div>
+
+<div class="form-floating mb-3">
+<a href="" class="btn btn-primary btn-xl w-100">Submit</a>
+</div>
+</form>
+</div>
+
+
+</div>
+
+<div id="help" class="row gx-4 px-lg-5 justify-content-center text-center">
+<div class="col-lg-4 text-center phone-contact">
+<i class="bi bi-phone"></i>
+<p class="mb-4">+1 (555) 123-4567</p>
+</div>
+
+</div>
+</div>
+</section>
+<!-- PAGE-SECTION-FORM-END -->
+<div class="on-top">
+<div class="switch">
+<i class="bi bi-caret-up"></i>
+
+</div>
+</div>
+
+
+<%- messages('messages', locals) %>
+
+<!-- PAGE-SECTION-SERVICE-START -->
+
+
+
+<%-include ('./layouts/footer') -%>

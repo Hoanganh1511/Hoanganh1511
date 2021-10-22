@@ -1,0 +1,84 @@
+<%- include ('../layouts/adminheader') %>
+
+
+
+
+<section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				
+				<h2>Đơn hàng đã đặt</h2>
+				<%- messages('messages', locals) %>
+				
+				<hr class="divider">
+				<p class="mb-4"></p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				
+			</div>
+			<% if(orders) { %>
+			<table class="table table-striped">
+					<thead>
+						<tr class="home">
+							<th class="top-product-th">Khách hàng</th>
+							<th class="top-product-th">Danh sách sản phẩm</th>
+						
+                            <th class="top-product-th">Tổng giá</th>
+						<th class="top-product-th">Địa chỉ</th>
+                            <th class="top-product-th">Ngày tạo</th>
+                          <th class="top-product-th">Trạng thái hiện tại</th>
+						  <th class="top-product-th">Gửi đơn</th>
+						    <th class="top-product-th">Hủy đơn</th>
+						</tr>
+					</thead>
+					<tbody>
+							<% orders.forEach(function(order){ %>
+								
+								<tr class="product-tr">
+									<td class="product-td"><%= order.userOrder %></td>
+									<td class="product-td">
+										<% order.detailOrder.forEach(function(e){ %>
+										<i style="text-transform: uppercase;"><%= e %><br/></i>
+
+										<% 	}) %>
+									</td>
+									<td class="product-td"><%= order.totalOrder %></td>
+									<td class="product-td"><%= order.address %></td>
+									<td class="product-td"><%= order.created_at %></td>
+
+								   
+										<% if(order.statusOrder==="Đơn đã xuất kho"){ %> 
+												 <td class="product-td exported"><%= order.statusOrder %> &nbsp; <i class="fi fi-ss-check"></i></td>
+										<% } else if(order.statusOrder ==="Đã hủy") { %>
+												 <td class="product-td canceled"><%= order.statusOrder %> </td>
+												 <% } else {%>
+ 												<td class="product-td in-stock"><%= order.statusOrder %></td>
+											<% } %>
+									<td class="product-td"><a href="/admin/orders/submitOrder/<%= order._id %>">Xác nhận gửi hàng</a></td>
+									<td class="product-td"><a href="/admin/orders/cancelOrder/<%= order._id %>">Hủy đơn</a></td>
+								</tr>
+
+							<%	}); %>
+					</tbody>
+			</table>
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<%} else { %>
+
+	<h3 class="text-center">There's no product !</h3>
+
+	<%} %>
+<%- include ('../layouts/adminfooter') %>

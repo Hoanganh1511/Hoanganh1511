@@ -1,0 +1,82 @@
+<%- include ('../layouts/adminheader') %>
+
+
+
+
+<section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				
+				<h2>Bình luận khách hàng</h2>
+				<%- messages('messages', locals) %>
+				
+				<hr class="divider">
+				<p class="mb-4"></p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				
+			</div>
+			<% if(eps) { %>
+			<table class="table table-striped">
+					<thead>
+						<tr class="home">
+							<th class="top-product-th">Tên người dùng</th>
+							<th class="top-product-th">Sản phẩm</th>
+							
+                            <th class="top-product-th">Bình luận</th>
+							   <th class="top-product-th">Trạng thái</th>
+							 <th class="top-product-th">Ẩn bình luận</th>
+                        
+							
+						</tr>
+					</thead>
+					<tbody>
+							<% eps.forEach(function(ep){ %>
+								
+								<tr class="product-tr">
+									<td class="product-td"><%= ep.userproduct %></td>
+									<td class="product-td"><%= ep.titleproduct %></td>
+									<td class="product-td"><%= ep.commentproduct %></td>
+										<% if(ep.status == "Hiển thị") { %>
+
+									<td class="product-td status_user_active"><%= ep.status %></td>
+
+											<% } else{  %>
+									<td class="product-td status_user_block"><%= ep.status %></td>
+												<% } %>
+
+										<% if(ep.checkhidden=== false) { %>
+										<td class="product-td"><a href="/admin/comment/hidden/<%= ep.id %>">Ẩn</a></td>
+											<% }else { %>
+										<td class="product-td"><a href="/admin/comment/unhidden/<%= ep.id %>">Hiển thị</a></td>
+												<% } %>
+								
+								
+								   
+
+								</tr>
+
+							<%	}); %>
+					</tbody>
+			</table>
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<%} else { %>
+
+	<h3 class="text-center">There's no product !</h3>
+
+	<%} %>
+<%- include ('../layouts/adminfooter') %>

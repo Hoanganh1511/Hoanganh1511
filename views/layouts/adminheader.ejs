@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">  
+
+	<link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="/css/adminstyle.css">
+ 	<link rel="stylesheet" href="/1.css">
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script></script>
+	 <title>Admin Area</title>
+	
+</head>
+<body>
+	
+		<!-- NAV -->
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3">
+	
+				<div class="container px-4 px-lg-5">
+					<a href="/" class="navbar-brand" target="_blank"><strong>SAINT LAURENT</strong>&ensp;</a>
+					<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					  </button> -->
+					  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					  </button>
+				  
+
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav ms-auto">
+							<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="#home"></a></li>
+							<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/products" >Sản phẩm</a></li>
+							<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/pages">Điều hướng</a></li>
+							<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/categories">Danh mục</a></li>
+							<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/users">Người dùng</a></li>
+								<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/orders">Đơn hàng</a></li>
+								<li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="/admin/comment">Bình luận</a></li>
+							<!-- <li class="nav-item ps-2"><a class="nav-link" id="nav-link" href="#contact"></a></li> -->
+							
+							<li class="account">
+								<% if(user) { %>
+									<a href="/users/profile"><i class="bi bi-person"></i></a>
+									<h5> <%= user.username %></h5>
+									<a class="logout" href="/users/logout"><i class="bi bi-box-arrow-right"></i></a>
+								<% } else { %>
+									<a class="log" href="/users/register">Register</a>
+									<a class="log" href="/users/login">Login</a>
+											
+									<% } %>
+									
+								</li>
+							
+						</ul>
+						<a class="logout px-5" href="/users/logout"><i class="bi bi-box-arrow-right">&nbsp; Log out</i></a>
+					</div>
+				</div>
+				
+	
+		</nav>
+		
+		<!-- END_NAV -->
+
+		<!-- HEADER -->
+		<!-- <header class="masthead">
+			
+				<video autoplay loop muted class="background-video">
+					<source type="video/mp4" src="images/video3.mp4">
+				</video>
+				<div class="sound on-sound justify-content-center aligns-item-center">
+					<i class="bi bi-volume-up"></i>
+				</div>
+				<div class="sound off-sound justify-content-center aligns-item-center">
+					<i class="bi bi-volume-mute"></i>
+				</div>
+				<audio autoplay loop style="opacity:0" class="background-song">
+	
+					<source src="images/ocean.mp3" type="audio/mpeg">
+				 
+				  </audio>
+				 
+			
+			<div class="container px-4 px-lg-5 h-100">
+				<div class="row gx-4 gx-lg-5 h-100 aligns-item-center justify-content-center text-center">
+					<div class="col-lg-8 align-self-end">
+						<h1 class="intersection">Move fast and break things</h1>
+						<hr class="divider intersection">
+					</div>
+					<div class="col-lg-8 align-self-baseline">
+						<p class="mb-5 intersection">Nobody is bored when he is trying to make something that is beautiful, or to discover something that is true!</p>
+						<a href="#" class="btn btn-primary btn-xl">FIND OUT MORE</a>
+					</div>
+				</div>
+			</div>
+		</header> -->
+		<!-- END_HEADER -->
+
+		<!-- PAGE-SECTION-START -->
+		<!-- <section class="page-section bg-primary" id="about">
+			<div class="container px-4 px-lg-5" >
+				<div class="row gx-4 px-lg-5 justify-content-center text-center">
+					<div class="col-lg-8 text-center">
+						<h2 class="intersection"><i>We've got what you need!</i></h2>
+						<hr class="divider divider-light intersection">
+						<p class="mb-4 intersection"><i>Teamwork makes common people achieve uncommon results!</i></p>
+						<a href="" class="btn btn-primary btn-xl btn-light btn-pull" id="btn-page-section"><i>GET STARTED!</i></a>
+					</div>
+				</div>
+			</div>
+		</section> -->
+	<!-- PAGE-SECTION-END -->
+
+
+
+		<!-- PAGE-SECTION-SERVICE-START -->
+		<!-- <section class="page-section" id="services">
+			<div class="container px-4 gx-lg-5"  >
+				
+					<h2 class="text-center intersection">At Your Service</h2>
+					<hr class="divider intersection">
+					<div class="row px-4 gx-lg-5 intersection">
+						<div class="col-lg-3 col-md-6 text-center wrap-box-service">
+							<div class="mt-5">
+								<div class="mb-2 box-service">
+									<i class="bi bi-gem"></i>
+									<h3>Premium Account</h3>
+									<p>Exclusive benefits for VIP customers!</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 text-center wrap-box-service">
+							<div class="mt-5">
+								<div class="mb-2 box-service">
+									<i class="bi bi-laptop"></i>
+									<h3>Program</h3>
+									<p>Computer programs may be categorized along functional lines, such as application software and system software.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 text-center wrap-box-service">
+							<div class="mt-5">
+								<div class="mb-2 box-service">
+									<i class="bi bi-globe"></i>
+									<h3>Ready to Publish</h3>
+									<p>You can use this design as is, or you can make changes!</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 text-center wrap-box-service">
+							<div class="mt-5">
+								<div class="mb-2 box-service">
+									<i class="bi bi-heart"></i>
+									<h3>Made with Love</h3>
+									<p>Falling in love with code?</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+			</div>
+		</section> -->
+<!-- PAGE-SECTION-SERVICE-END -->
+
+
+<!-- PORTFOLIO -->
+		<!-- <div id="portfolio">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/1.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/2.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/3.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/4.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/5.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 g-0 portfolio">
+						<a disabled="disabled" class="portfolio-box">
+							<img src="images/6.jpg" alt="">
+							<div class="portfolio-box-caption">
+								<div class="project-category">Category</div>
+								<div class="project-name">More detailed</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div> -->
+<!-- END PORTFOLIO -->
+
+<!-- MODAL SLIDE -->
+		<!-- <div class="image-view">
+
+		</div>
+
+		<div class="image-box">
+			<div id="prev-btn"></div>
+			<div id="next-btn"></div>
+		</div> -->
+<!-- MODAL SLIDE -->
+
+
+
+
+	
+
+
+<!-- PAGE-SECTION-START -->
+<!-- <section class="page-section bg-dark">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="mb-4">Let's get started!</h2>
+				<a href="" class="btn btn-primary btn-xl btn-light btn-pull" id="btn-page-section">DOWNLOAD NOW!</a>
+			</div>
+		</div>
+	</div>
+</section> -->
+<!-- PAGE-SECTION-END -->
+
+
+<!-- PAGE-SECTION-FORM-START -->
+<!-- <section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				<h2>Let's Get In Touch!</h2>
+				<hr class="divider">
+				<p class="mb-4">Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!</p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				<form action="">
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  					<label for="floatingInput">Full name</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  					<label for="floatingInput">Email address</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  					<label for="floatingInput">Phone number</label>
+				</div>
+				<div class="form-floating mb-3">
+					<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+					<label for="floatingTextarea2">Messages</label>
+					
+				</div>
+
+				<div class="form-floating mb-3">
+					<a href="" class="btn btn-primary btn-xl w-100">Submit</a>
+				</div>
+				</form>
+			</div>
+			
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section> -->
+<!-- PAGE-SECTION-FORM-END -->
+<div class="on-top">
+	<div class="switch">
+		<i class="bi bi-caret-up"></i>
+		
+	</div>
+</div>
+
+<!-- FOOTER -->
+
+	
+	
+	

@@ -1,0 +1,100 @@
+<%- include ('../layouts/adminheader') %>
+
+
+
+
+<section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				
+				<h2>Danh sách tài khoản</h2>
+				<%- messages('messages', locals) %>
+				
+				<hr class="divider">
+				<p class="mb-4"></p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				
+			</div>
+			<% if(users) { %>
+			<table class="table table-striped">
+					<thead>
+						<tr class="home">
+							<th class="top-product-th">Tên người dùng</th>
+							<th class="top-product-th">Email</th>
+							<th class="top-product-th">Username</th>
+                            <th class="top-product-th">Số điện thoại</th>
+							<th class="top-product-th">Chức vụ</th>
+							<th class="top-product-th">Trạng thái</th>
+                            <th class="top-product-th">Avatar</th>
+							<th class="top-product-th">Khóa TK</th>
+							<th class="top-product-th">Xóa TK</th>
+							
+							
+						</tr>
+					</thead>
+					<tbody>
+							<% users.forEach(function(user){ %>
+								
+								<tr class="product-tr">
+									<td class="product-td"><%= user.name %></td>
+									<td class="product-td"><%= user.email %></td>
+									<td class="product-td">"<%= user.username %>"</td>
+								
+								    <td class="product-td"><%= user.phone %></td>
+									 <% if(user.admin === 1) { %>
+										<td class="product-td admin-td">Quản trị viên</td>
+										<% } else { %>
+											<td class="product-td">Khách hàng</td>
+											<% } %>
+
+									<% if(user.status === "Hoạt động") { %>
+
+									<td class="product-td status_user_active"><%= user.status %></td>
+
+											<% } else{  %>
+									<td class="product-td status_user_block"><%= user.status %></td>
+												<% } %>
+
+									<td class="product-td"><img src="../../images/<%= user.avatar %>" class="img_user_admin"/></td>
+
+										<% if(user.checkblock=== false) { %>
+										<td class="product-td"><a href="/admin/users/block/<%= user.id %>">Khóa</a></td>
+											<% }else { %>
+										<td class="product-td"><a href="/admin/users/unblock/<%= user.id %>">Mở khóa</a></td>
+												<% } %>
+									
+
+
+									 <% if(user.admin === 1) { %>
+										<td class="product-td">Không thể xóa admin</td>
+										<% } else { %>
+											<th class="product-td"><a href="/admin/users/delete/<%= user.id %>">Xóa người dùng</a></th>
+											<% } %>
+									
+								</tr>
+
+							<%	}); %>
+					</tbody>
+			</table>
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<%} else { %>
+
+	<h3 class="text-center">There's no product !</h3>
+
+	<%} %>
+<%- include ('../layouts/adminfooter') %>

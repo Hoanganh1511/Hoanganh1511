@@ -1,0 +1,83 @@
+<%- include ('../layouts/adminheader') %>
+
+
+
+
+<section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				
+				<h2>Products</h2>
+				<%- messages('messages', locals) %>
+				
+				<hr class="divider">
+				<p class="mb-4">Quản lý sản phẩm</p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				<a href="/admin/products/add-product" class="btn btn-primary btn-xl my-4">Add a new Product<i class="bi bi-plus icon-plus"></i></a>
+			</div>
+			<% if(count > 0) { %>
+			<table class="table table-striped">
+					<thead>
+						<tr class="home">
+							<th class="top-product-th">Product</th>
+							<th class="top-product-th">Price</th>
+							<th class="top-product-th">Category</th>
+							<th class="top-product-th">Size</th>
+							<th class="top-product-th">Product Image</th>
+							<th class="top-product-th">Edit</th>
+							<th class="top-product-th">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+							<% products.forEach(function(product){ %>
+								
+								<tr class="product-tr">
+									<td class="product-td"><%= product.title %></td>
+									<td class="product-td"><b>£</b><%= parseFloat(product.price).toFixed(2) %></td>
+									<td class="product-td"><%= product.category %></td>
+									<td class="product-td">
+										
+										<%= product.size %>
+
+									</td>
+									
+									<td class="product-td">
+										<% if(product.image == "") { %>
+												<img id="noimage" src="/images/noimage.jpg">
+											<% } else { %>
+												<img id="noimage" src="/product_images/<%= product._id %>/<%= product.image %>" alt="">
+
+												<%} %>
+									</td>
+									<td class="product-td cancel-td"><a href="/admin/products/edit-product/<%= product._id %>">Edit<i class="bi bi-pencil-square"></i></a></td>
+										
+									<td class="product-td cancel-td"><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Delete<i class="bi bi-trash"></i></a></td>
+											
+									
+								</tr>
+
+							<%	}); %>
+					</tbody>
+			</table>
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<%} else { %>
+
+	<h3 class="text-center">There's no product !</h3>
+
+	<%} %>
+<%- include ('../layouts/adminfooter') %>

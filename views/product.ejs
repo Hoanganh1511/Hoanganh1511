@@ -1,0 +1,241 @@
+<%-include ('./layouts/header') -%>
+
+
+
+
+<section class="detail-product intersection" id="detail-product">
+    <div class="container-fluid">
+        <div class="row">
+          
+          
+            <div class="col-lg-6 detail-image">
+               <div class="box-image">
+                <img class="spi" src="/product_images/<%- p.id %>/<%- p.image %>" alt="">
+                <ul class="gallery">
+                    <!-- galleryImages hiện đang có 4 ảnh ở bên controller !! -->
+                    <% galleryImages.forEach(function(image){ %> 
+                        <% if(image != "thumbs") { %>
+                            <li>
+                                <a href="/product_images/<%- p.id %>/gallery/<%- image %>" data-fancybox="gallery">
+                                    <img src="/product_images/<%- p.id %>/gallery/thumbs/<%- image %>" alt="">
+                                </a>
+                            </li>
+                          <% }; %>  
+        
+                   <% }) %>
+                </ul>
+               </div>
+               
+        </div>
+        <div class="col-lg-2">
+            
+
+        </div>
+       
+
+            <div class="col-lg-4 justify-content-center">
+                <div class="info-detail intersection">
+                    <p class="category-detail"><%- p.category %></p>
+                    <h4 class="title-detail"><%- p.title %></h4>
+                    <p><%- p.desc %></p>
+                    <div class="select-size mb-3">
+                        <% var a = 0; %>
+                    <% (p.size).forEach(function(s) { %>
+                        
+                       
+
+                            
+                        <form action="/cart/add/<%= p.slug %>" method="post"> 
+                           
+                                <input type="radio" name="size" id="<%= s %>" value="<%= s %>"/>
+                              
+                             
+                                <label for="<%= s %>"><%= s %></label>
+                              
+                              
+                           
+                          
+                       
+
+                    <% }) %>
+                     
+                    <p class="price-detail">£<%- p.price.toFixed(2) %></p>
+                    <% if(loggedIn) { %>
+                        <div class="add-cart">
+                       <button type="submit" class="add-cart-link" value="Mua ngay">Mua ngay</button><i class="bi bi-cart-plus"></i>
+                    
+                        </div>
+                         </form>  
+                        </div>
+                 <%   } else { %>
+                    
+                    <p class="text-danger">You must be logged in to purchase items<i class="bi bi-info-circle ps-2"></i></p>
+
+                        
+                    </div>
+                </form>  
+                    <% } %>
+                    
+
+
+                    <%- messages('messages', locals) %>
+                    <div class="help">
+                        <div class="return">
+                            <i class="bi bi-arrow-repeat"></i>
+                            <p>30 Day Return</p>
+                        </div>
+                        <div class="warranty">
+                            <i class="bi bi-award"></i>
+                            <p>1 Year Warranty</p>
+                        </div>
+                        <div class="freeship">
+                            <i class="bi bi-truck"></i>
+                            <p>Free 4-Day Shipping</p>
+                        </div>
+                    </div>
+                </div>
+               
+              
+               
+            </div>
+            
+        </div>
+    </div>
+   
+</section>
+
+<div class="container-fluid">
+   <div class="row">
+    <div class="col-12 py-5 px-5">
+      
+
+        <div class="history-vote">
+        
+              <% es.forEach(function(e){ %>
+
+                <% if(e.checkhidden === true) { %>
+                     <div class="box-user-voted">
+                                <h4><i class="bi bi-person-check-fill">_</i>
+                    
+                                 <b class="user-commented"> <%= e.userproduct %></b>
+                   
+                   
+                                </h4>
+                               <b> <i>Người dùng này đã bình luận không đúng thuần phong mỹ tục ! Đã ẩn !</i></b>
+                             </div>
+
+                      
+                    <% } else { %>
+                          <div class="box-user-voted">
+                                <h4><i class="bi bi-person-check-fill">_</i>
+                    
+                                 <b> <%= e.userproduct %></b>
+                   
+                   
+                                </h4>
+                                <p><%= e.commentproduct %></p>
+                             </div>
+
+                        <% } %>
+             
+             <% }); %>
+               
+
+             <div class="vote">
+                <form action="/../evaluates/vote/<%= p.title %>" class="col-12" method="post">
+                   <% if(user){ %>
+                       <div class="user-comment">
+                            <h4>User comment:</h4>
+                            <input type="text" id="vote1" name="userproduct" value="<%= user.username %>" disabled>
+                       </div>
+                    <% }else{ %>      
+                        <div class="user-comment">
+                            <h4>User comment:</h4>
+                            <input type="text" id="vote1" name="userproduct">
+                           
+                       </div>
+                       
+                        <% } %>
+                   <div class="content-comment">
+                        <label for="vote1"> </label>
+                        <!-- <input type="text" id="vote1" name="commentproduct"> -->
+                        <textarea  id="" cols="100" rows="2" name="commentproduct"></textarea>
+                        <input class="btn-send" type="submit" value="Send">
+                       
+                   </div>
+                   
+               
+                </form>
+            </div>
+           
+        </div>
+        
+    </div>
+   </div>
+</div>
+<div id="portfolio">
+    <div class="container-fluid">
+    
+    <div class="row justify-content-evenly">
+    
+    <% products.forEach(function(p){ %>
+        <div class="col-lg-4 col-md-6 g-0 px-3 my-3 portfolio anim2">
+            <div disabled="disabled" class="portfolio-box">
+                <img src="/../product_images/<%= p.id %>/<%= p.image %>" alt="">
+                
+                <a href="/products/<%- p.category %>/<%- p.slug %>?title=<%- p.title %>" class="portfolio-box-caption">
+                    <div class="project-buynow vd">View Details &nbsp; <i class="bi bi-cart-plus"></i></div>
+                    <div class="project-name"></div>
+                    <div class="index-size project-buynow vd">
+                 
+                        <% (p.size).forEach(function(s) { %>
+                            <p href=""><%= s %></p>
+                
+                
+                          <% }) %>
+                     </div>
+                </a>
+                
+            </div>
+            <p class="category-product"><%= p.category %></p>
+            <h3 class="title-product"><%= p.title %></h3>
+                <p class="price-product"><b>£</b><%= p.price %></p>
+        </div>
+        
+        <% }); %>
+    
+    </div>
+    </div>
+    </div>
+
+
+
+
+<div class="on-top">
+<div class="switch">
+<i class="bi bi-caret-up"></i>
+
+</div>
+</div>
+
+<script>
+    
+    $("body").on("click", "label", function(e) {
+       
+        console.log('aaaaaaaaa');
+  var getValue = $(this).attr("for");
+  $(this).prop('checked', false);
+  $(this).attr('checked', false);
+  var goToParent = $(this).parents(".select-size");
+  var getInputRadio = goToParent.find("input[id = " + getValue + "]");
+  console.log(getInputRadio.attr("id"));  
+});
+
+</script>
+
+
+<!-- PAGE-SECTION-SERVICE-START -->
+
+
+
+<%-include ('./layouts/footer') -%>

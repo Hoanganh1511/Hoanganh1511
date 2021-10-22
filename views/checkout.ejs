@@ -1,0 +1,266 @@
+<%-include ('./layouts/header') -%>
+
+
+
+
+<% if(typeof cart !== "undefined") { %>
+  <div class="container-fluid px-5 cart-detail">
+      <h3 class="">My Cart</h3>
+      <br>
+     
+      
+        <div class="row">
+            <div class="col-8 box-cart-detail">
+                <% var total = 0; %>
+                <% cart.forEach(function(product) { %>
+                  
+                    <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
+                    <% total += +sub %>
+                    <div class="w-100 product-cart-detail">
+                        <div class="box-cart-image">
+                            <img class="cpi" src="<%- product.image %>" alt="">
+                          </div>
+                         
+                                <div class="info-cart-detail">
+                                    
+                                        
+                                      <h4 class="title-cart-detail"><b><%= product.title %></b></h4>  
+                                        <p class="price-cart-detail"><b>Price: </b>£<%= product.price %></p>   
+                                        <p class="price-cart-detail"><b>Size: </b><%= product.size %></p>   
+                                        <p class="quantity-cart-detail"><b>Quantity:</b> <%= product.qty %></p>
+                                        <div class="edit-cart-detail">
+                                            <a  class="btn-edit" href="/cart/update/<%= product.title %>?action=add">+</a>
+                                            <a  class="btn-edit" href="/cart/update/<%= product.title %>?action=remove">-</a>
+                                            <a  class="btn-edit" href="/cart/update/<%= product.title %>?action=clear">Clear</a>
+                                        </div>
+                                        <p class="total-cart-detail"><b class="pe-1">Total: </b> £<%= sub %></p>
+                                        
+                                      
+                                    
+                                   
+                                </div>
+                    </div>
+               
+                 
+                        <%  }); %>
+            
+            
+        </div>
+            
+            <div class="col-4">
+                <div class="checkout-pay">
+                    <h3 class="text-center"><i>Sain Laurent</i></h3>
+                    <% let nameProduct = [] %>
+                    <% let quantityProduct = [] %>
+                    <% var totalPrice = 0 %>
+                 
+                   <form method="post" action="/cart/bill">
+                   <div class="total-end">
+                         
+                       <% cart.forEach(function(product) { %>
+                       
+                        <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
+                         <p><b><%= product.title %></b> <i class="bg-dark px-2 text-white"><%= product.size %></i> x <%= product.qty %> = £ <%= sub %></p>
+                         
+                          <% nameProduct.push(product.title) %>
+                           <% quantityProduct.push(product.qty) %>
+                  
+                        <%  }); %>
+                        <input type="hidden" name="nameProduct" value="<%= nameProduct %>"/>
+                        <% totalPrice = parseFloat(total).toFixed(2) %>
+                        <input type="hidden" name="totalPrice" value="<%= totalPrice %>"/>
+                          <input type="hidden" name="quantityProduct" value="<%= quantityProduct %>"/>
+                            
+                        
+                   </div>
+                
+                   
+                    <h4><b>Total Bill:</b>&nbsp; $<%= parseFloat(total).toFixed(2) %>   <%- messages() %></h4>
+                    <label for="address">Địa chỉ giao hàng:</label>
+                   <input type="text" id="address" name="address">
+                    
+                   <div class="payment">
+                       <a class="clearcart" href="/cart/clear">Clear Cart</a>
+                       <a href="#" class="buynow">Paypal</a>
+                       <input type="hidden" name="cmd" value="_ext-enter">
+                        <button type="submit" class="buy_now">Thanh toán</button>
+                      </form> 
+
+<!-- Form thanh toan Paypal               -->
+<form class="pp" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1">
+   <input type="hidden" name="business" value="hoanganhss2k@gmail.com">
+   <% var num = 0; %>
+   <% cart.forEach(function(p) { %>
+        <% num++ %>
+        <input type="hidden" name="item_name_<%= num %>" value="<%= p.title %>">
+        <input type="hidden" name="amount_<%= num %>" value="<%= p.price %>">
+        <input type="hidden" name="quantity_<%= num %>" value="<%= p.qty %>">
+
+    <% }); %>
+   <input type="hidden" name="currency_code" value="USD">
+   <input type="hidden" name="amount" value="<%= total %>">
+   <input type="image"   src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+</form>
+                   </div>
+                </div>
+            </div>
+        </div>
+        
+       
+  
+  </div>
+    <% } else { %>
+<div class="cart-detail">
+    <h3 class="text-center"><b> Your cart is empty !</b> </h3>
+</div>
+
+<% } %>
+
+<!-- PORTFOLIO -->
+<div id="portfolio">
+<div class="container-fluid">
+
+<div class="row justify-content-evenly">
+
+<% products.forEach(function(p){ %>
+    <div class="col-lg-4 col-md-6 g-0 px-3 my-3 portfolio anim2">
+        <div disabled="disabled" class="portfolio-box">
+            <img src="/../product_images/<%= p.id %>/<%= p.image %>" alt="">
+            
+            <a href="/products/<%- p.category %>/<%- p.slug %>" class="portfolio-box-caption">
+            
+               <div class="index-size project-buynow vd">
+                 
+                    <% (p.size).forEach(function(s) { %>
+                        <p href=""><%= s %></p>
+            
+            
+                      <% }) %>
+                 </div>
+               
+            </a>
+            
+        </div>
+        <p class="category-product"><%= p.category %></p>
+        <h3 class="title-product"><%= p.title %></h3>
+            <p class="price-product"><b>£</b><%= p.price %></p>
+    </div>
+    
+    <% }); %>
+
+</div>
+</div>
+</div>
+<!-- END PORTFOLIO -->
+
+<!-- MODAL SLIDE -->
+<!-- <div class="image-view">
+
+</div>
+
+<div class="image-box">
+<div id="prev-btn"></div>
+<div id="next-btn"></div>
+</div> -->
+<!-- MODAL SLIDE -->
+
+
+
+
+
+
+
+<!-- PAGE-SECTION-START -->
+<section class="page-section bg-dark">
+<div class="container px-4 px-lg-5">
+<div class="row gx-4 px-lg-5 justify-content-center text-center">
+<div class="col-lg-8 text-center">
+<h2 class="mb-4">Let's get started!</h2>
+<a href="" class="btn btn-primary btn-xl btn-light btn-pull" id="btn-page-section">DOWNLOAD NOW!</a>
+</div>
+</div>
+</div>
+</section>
+<!-- PAGE-SECTION-END -->
+
+
+<!-- PAGE-SECTION-FORM-START -->
+<section class="page-section" id="contact">
+<div class="container px-4 px-lg-5">
+<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+<div class="col-lg-8 text-center">
+<h2>Let's Get In Touch!</h2>
+<hr class="divider">
+<p class="mb-4">Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!</p>
+
+</div>
+<div action="" class="form-contact col-lg-6">
+<form action="">
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Full name</label>
+</div>
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating mb-3">
+<input type="email" class="form-control" id="floatingInput" placeholder=" ">
+  <label for="floatingInput">Phone number</label>
+</div>
+<div class="form-floating mb-3">
+<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+<label for="floatingTextarea2">Messages</label>
+
+</div>
+
+<div class="form-floating mb-3">
+<a href="" class="btn btn-primary btn-xl w-100">Submit</a>
+</div>
+</form>
+</div>
+
+
+</div>
+
+<div id="help" class="row gx-4 px-lg-5 justify-content-center text-center">
+<div class="col-lg-4 text-center phone-contact">
+<i class="bi bi-phone"></i>
+<p class="mb-4">+1 (555) 123-4567</p>
+</div>
+
+</div>
+</div>
+</section>
+<!-- PAGE-SECTION-FORM-END -->
+<div class="on-top">
+<div class="switch">
+<i class="bi bi-caret-up"></i>
+
+</div>
+</div>
+
+
+
+
+<!-- PAGE-SECTION-SERVICE-START -->
+<script>
+        $('a.clearcart').on('click',()=>{
+        if(!confirm('Confirm Clear Cart ?'))
+        return false;
+    });
+    $('a.buynow').on('click',(e)=>{
+        e.preventDefault();
+
+        $.get('/cart/buynow/',function(){
+
+            $('form.pp input[type=image]').click();
+            $('.ajaxbg').show();
+        })
+    });
+</script>
+
+
+<%-include ('./layouts/footer') -%>

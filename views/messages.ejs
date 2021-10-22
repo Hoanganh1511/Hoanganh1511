@@ -1,0 +1,13 @@
+
+   
+    <% Object.keys(messages).forEach(function (type) { %>
+     
+    <div class="alert alert-info message"><%= type %>
+      <% messages[type].forEach(function (message) { %>
+        <%= message %>
+      <% }) %>
+      <i class="bi bi-x-circle close-message" onclick="btncloseMessage()"></i>
+    </div> 
+     
+    <% }) %>
+ 

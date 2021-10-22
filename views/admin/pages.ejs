@@ -1,0 +1,75 @@
+<%- include ('../layouts/adminheader') %>
+
+<!-- <h2 class="page-title">Add a page</h2>
+<a href="/admin/pages" class="btn btn-primary">Back to all pages</a>
+<br><br> -->
+
+
+<section class="page-section" id="contact">
+	<div class="container px-4 px-lg-5">
+		<div class="row gx-4 px-lg-5 mb-5 justify-content-center text-center">
+			<div class="col-lg-8 text-center">
+				
+				<h2>Pages</h2>
+				<%- messages('messages', locals) %>
+				<hr class="divider">
+				<p class="mb-4">Thanh điều hướng</p>
+			
+			</div>
+			<div action="" class="form-contact col-lg-6">
+				<a href="/admin/pages/add-page" class="btn btn-primary btn-xl my-4">Add a new page</a>
+			</div>
+			<table class="table table-striped sorting">
+					<thead>
+						<tr class="home">
+							<th>Title</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+							<% pages.forEach(function(page){ %>
+								
+								<tr id="id_<%= page._id %>" class="<%= page.slug %>">
+									<td><%= page.title %></td>
+									<td><a href="/admin/pages/edit-page/<%= page._id %>">Edit</a></td>
+										<% if (page.slug == "home") { %>
+										<td></td>
+										<% } else { %>
+									<td><a class="confirmDeletion" href="/admin/pages/delete-page/<%= page._id %>">Delete</a></td>
+											
+										<% } %>
+								</tr>
+
+							<%	}); %>
+					</tbody>
+			</table>
+			
+		</div>
+
+		<div class="row gx-4 px-lg-5 justify-content-center text-center">
+			<div class="col-lg-4 text-center phone-contact">
+				<i class="bi bi-phone"></i>
+				<p class="mb-4">+1 (555) 123-4567</p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script>
+	$('tbody').sortable({
+
+		items: "tr:not('.home')",
+		placeholder: "ui-state-hightlight",
+		update: function(){
+			var ids = $('tbody').sortable("serialize");
+			var url = "/admin/pages/reorder-pages";
+
+			$.post(url,ids);
+		}
+
+	});
+</script>
+<%- include ('../layouts/adminfooter') %>
